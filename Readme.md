@@ -5,21 +5,20 @@
 
 # What is a VPN kill switch and why is it required?
 
-Kill switch is a technique that helps you prevent unprotected access to the Internet, where your traffic doesn't go through the VPN.
+A Kill switch is a technique that helps you prevent unprotected access to the Internet, where your traffic doesn't go through the VPN.
 
-While most leading VPN providers are reliable, there can be _unexpected network drops_ at anytime. Many VPN providers provide 99.99% uptime but there can always be that 0.01% of downtime. Connection drops generally happen because of reasons such as poor Internet connection, an unstable protocol or your firewall settings. There might be any reason behind the drop but it will leak your real IP which can be a really bad thing.
-
-
-When you turn on the kill switch while using VPN and a connection drop occurs, it will drop the Internet connection as well. This way, you will be unable to send unprotected data on the Internet. Several VPN providers integrating their own solutions and options for this within their own VPN Client software, but it's not needed and the original OpenVPN software (GUI) is more than enough, so this tutorial was basically designed to address the 'issue' that the [OpenVPN GUI doesn't include an option for this](https://forums.openvpn.net/viewtopic.php?t=19193). 
+While most leading [VPN](https://en.wikipedia.org/wiki/Virtual_private_network) providers are reliable, there can be _unexpected network drops_ at anytime. Many VPN providers provide 99.99% uptime but there can always be that 0.01% of downtime. Connection drops generally happen because of reasons such as poor Internet connection, an unstable protocol or your firewall settings. There might be any reason behind the drop but it will leak your real IP which can be a really bad thing.
 
 
+When you turn on the kill switch while using VPN and a connection drop occurs, it will drop the Internet connection as well. This way, you will be unable to send unprotected data on the Internet. Several VPN providers integrating their own solutions and options for this within their own VPN Client software, but it's not needed and the original [OpenVPN software (GUI)](https://community.openvpn.net/openvpn/wiki/ChangesInOpenvpn24) is more than enough, so this tutorial was basically designed to address the 'issue' that the [OpenVPN GUI doesn't include an option for this](https://forums.openvpn.net/viewtopic.php?t=19193). 
 
-In general there only three ways to prevent a leakage:
 
-* Configure Window own Firewall to disable every outgoing connections on all Private networks, then make the OpenVPN Adapter Public.
-* Fiddle with the Windows routing table directly. Requires some strong networking awareness.
-* Create a virtual router using VM software like VMWare, VirtualBox, QEMU, Parallels, to install a router-friendly OS like PFSense or Linux + OpenVPN config in a new guest virtual machine. Route your host machine through the guest.
-* Some VPN provider directly providing kill switch scripts.
+In general there only three ways to prevent connectivity data leakage:
+
+* Configure your Window own firewall to disable every outgoing connections on all your Private networks, then make the OpenVPN Adapter Public (default).
+* Fiddle with the Windows [routing table](https://searchnetworking.techtarget.com/tip/Making-sense-of-Windows-routing-tables) directly which requires some _strong_ networking awareness.
+* Create a virtual router using VM software like [VMWare[https://www.vmware.com/), [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [QEMU](https://www.qemu.org/), [Parallels](https://www.parallels.com/), to install a router-friendly OS like [PFSense](https://www.pfsense.org/) or Linux + OpenVPN config in a new guest virtual machine and then route your host machine through the guest.
+* Some VPN provider directly providing kill switch scripts. Ensure you checked their provided FAQ or documentation.
 
 
 
@@ -111,13 +110,7 @@ Change the **Location type** from **Public** to **Private**. You also need to ch
 </p>
 
 
-This should be your end-result.
-
-<p align="center"> 
-<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
-</p>
-
-Keep in mind that the network adapter names are different for your network.
+This should be your end-result. Please keep in mind that your network adapter having a different name.
 
 
 
