@@ -38,6 +38,16 @@ Inbound rules are only in case your device as a server, and has other remote dev
 
 
 
+# How do I automatically connect to my VPN Server with OpenVPN
+
+* Go to the configuration directory where you keep the configuration files for OVPN. Usually, they can be found under `C:\Program Files\OpenVPN\config`.
+* Create a file called password.txt (or whatever you like to call it). On the first line, write your `username` and on the second line your `password`. The username and password is your authentication to your VPN server.
+* Edit the configuration file (.openvpn) that you are use, you can do this with every text editor such as Windows own Notepad or Notepad++.
+* Find the command **auth-user-pass** and change it to **auth-user-pass password.txt**. If your configuration doesn't have any of these entries create one yourself.
+* Then save the configuration file.
+
+
+
 ## Requirements
 
 * Windows 7 up to 10 (Home Editions doesn't include secpol.msc)
@@ -128,14 +138,14 @@ Press **WinKey+R** to bring up the runbox and enter **wf.msc**.
 
 * Click **Action** from the top menu bar and press **Select Export Policy...**.
 
-* Save this file to eg your Desktop or any other location you want, the file which will be exported is a Microsoft own format (.wfw), it contains all the firewall rules into one file.
+* Save this file to for example your Desktop or any other location you want, the file which will be exported is a Microsoft own format (.wfw), it contains all the firewall rules into one file.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/Restore%20Default%20Policy.png">
 </p>
 
 
-* If you mess up your firewall rules, you can always it later with the **Import Policy...** option which requires the file you have backuped previously. 
+* If you mess up your firewall rules, you can always it later with the **Import Policy...** option which requires the file you have backed up previously. 
 
 Importing .wfw rules (entire profile) will override all existent rules and set everything back to default.
 
