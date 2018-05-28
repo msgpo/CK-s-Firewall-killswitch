@@ -3,7 +3,7 @@
 [![Discord](https://discordapp.com/api/guilds/418256415874875402/widget.png)](https://discord.me/CHEF-KOCH)
 
 
-# Why is a VPN kill switch is required?
+# Why is a VPN kill switch required?
 
 A kill switch ensures that no traffic or IP leakage can happen which might exposes you. With the Windows integrated firewall you can eliminate accidental leakage. 
 
@@ -25,11 +25,13 @@ A kill switch ensures that no traffic or IP leakage can happen which might expos
 
 * Windows 7 up to 10 (Home Editions doesn't include secpol.msc)
 * A VPN provider
+* OpenVPN CLient SOftware (also works with others, just replace the path to the executable which etablish the connection)
 * **No** third-party firewall application! 
 * Network adapters need to be set from Private to Public
+* (_optional_) WFC or Windows 10 Firewall Control
 
 
-## Warnings
+## Some warnings
 
 * Using a software or hardware firewall is usually the best way to go for locking down your network, however as compliment for the Windows own firewall you could use WFC (binisoft.org) or Windows 10 Firewall Control (sphinx-soft.com)
 * If you ever get a **firewall popup** to add program, make sure to **uncheck Private networks** and only have **Public** networks checked before clicking Allow access. If you fail to monitor this, the kill switch will be pointless.
@@ -38,7 +40,7 @@ A kill switch ensures that no traffic or IP leakage can happen which might expos
 
 
 
-## What's the difference between TorGuards VPN Client kills witch and a Firewall kills witch? 
+## What's the difference between VPN Client integrated kill switch and a Windows Firewall kill switch? 
 
 Simple, the client disables your main network interface, while the firewall simply blocks all traffic without disabling any network interface. Private Internet Access for example has an option within their Client Software, which also doesn't 'prevent' the leakage is simply blocks the interface so no communication can pass the interface.
 
@@ -51,19 +53,53 @@ The main problem with any third party application that disables your network ada
 ## Switching your main Network Adapter from 'Public' to'Private'
 
 
-* Press WinKey+R to bring up the runbox type in: `control.exe /name Microsoft.NetworkAndSharingCenter`
+* Press **WinKey+R** to bring up the runbox type in: `control.exe /name Microsoft.NetworkAndSharingCenter`
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/control.exe.png">
+</p>
 
 
-* Press WinKey+R to bring up the runbox type in: `secpol.msc`
+* Press **WinKey+R** to bring up the runbox type in: `secpol.msc`
 
-* Select Network List Manager Policies from the left pane and double click on Network(name may differ) from the right pane. Right click and select the **Network Location** tab
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/secpol.msc.png">
+</p>
+
+
+* Select Network List Manager Policies from the left pane and double click on Network (name may differ) from the right pane. Right click and select the **Network Location** tab
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
+</p>
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/Network%20List%20Manager%20Policies.png">
+</p>
+
 
 * Change the **Location type** to **Private**
 
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
+</p>
+
+
+
 * Change **User permissions** to **User cannot change location** and click **Apply**.
 
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/Public%20to%20Private.png">
+</p>
 
-### Open Windows Firewall with Advanced Security
+
+
+### Open Windows Firewall with 'Advanced Security' Settings
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/wf.png">
+</p>
 
 
 * Press WinKey+R to bring up the runbox and enter **wf.msc**
@@ -72,12 +108,22 @@ The main problem with any third party application that disables your network ada
 # Backup Current Firewall Policy
 
 
-* Click Action from the top menu bar >> Select Export Policy...
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/Firewall%20Export%20settings.png">
+</p>
 
+* Click Action from the top menu bar > **Select Export Policy...**.
 
-* Save to Desktop or other location
+* Save to Desktop or other location, the file is a Microsoft own format (.wfw) it contains all the firewall rules.
+
 * If you mess up your firewall rules some how, you can always Import Policy... to restore
-* Click Action from the top menu bar > Select Restore Default Policy”. This will revert your firewall rules to the default ones.
+
+* Click Action from the top menu bar > Select **Restore Default Policy**. This will revert your firewall rules to the default ones.
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/Restore%20Default%20Policy.png">
+</p>
 
 
 
@@ -85,15 +131,37 @@ The main problem with any third party application that disables your network ada
 
 
 
-# Create Outbound Firewall Rules
+# Creating Outbound Firewall Rules
 
-* Select Outbound Rules on the left pane
-* Click New Rule... on the right pane
-* Rule Type > Program
-* Program > This program path: C:\Program Files\OpenVPN\bin\openvpn.exe
-* Action > Allow the connection
-* Profile > Domain/Private/Public all checked
-* Name > Name: VPN Kill Switch 
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/New%20Rule.png">
+</p>
+
+* Select **Outbound Rules** on the left pane
+* Click **New Rule...** on the right pane
+* Under Rule Type select **Program**
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/Allow%20OpenVPN.png">
+</p>
+
+* Under **Program** set your path to your OpenVPN installation (ot the VPN Client which manage your VPN Client side connection)eg `C:\Program Files\OpenVPN\bin\openvpn.exe`.
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/Allow%20OpenVPN%20connection.png">
+</p>
+
+
+* Action > **Allow the connection**
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/Allow%20OpenVPN.png">
+</p>
+
+* Under Profile select everything, **Domain**, **Private** and **Public** ensure it's checked (default).
+
+* **Name** > Name: For example **VPN Kill Switch** or whatever you want. 
 
 
 
@@ -102,24 +170,60 @@ The main problem with any third party application that disables your network ada
 
 # Block all Connections for Private/Domain
 
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Block%20all%20Connections%20for%20Private%20%26%20Domain%20connections/Windows%20Firewall%20with%20Advanced%20Security%20on%20Local%20Computer.png">
+</p>
 
 * Select Windows Firewall with Advanced Security on Local Computer on the left pane
 
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Block%20all%20Connections%20for%20Private%20%26%20Domain%20connections/Domain%20and%20Private%20Profile.png">
+</p>
+
+
 * Click Windows Firewall Properties on the middle pane
 
-* Under the Domain Profile and Private Profile change Outbound connections: to Block
 
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Block%20all%20Connections%20for%20Private%20%26%20Domain%20connections/Public%20Profile.png">
+</p>
 
-
-
+* Under the Domain Profile and Private Profile change Outbound connections: to **Block**.
 
 
 
 
 # Giving Internet permission to applications manually
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Allow%20internet%20permission%20for%20applications%20manually/Allow%20applications%20manually.png">
+</p>
  
 * Select Outbound Rules on the left pane
-
 * Click New Rule... on the right pane
 
-* Do the same as the TorGuard rule you created, but this time only select the "Public" network space.
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Allow%20internet%20permission%20for%20applications%20manually/Profile.png">
+</p>
+
+* Do the same as the OpenVPN rules you've created, but this time only select the "Public" network space.
+
+
+# Notice for WFC users
+
+* Some firewall GUI applications such as WFC have special options, ensure that 
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/WFC%20Secure%20Rules.png">
+</p>
+
+* **Uncheck** the following 3 options during the import/export process. 
+
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/WFC%20rules.png">
+</p>
+
+* Ensure you only allow **public* rules creation, you can make your life easier and avoid making mistakes by unchecking the **Domain** and ''Private** network locations.
