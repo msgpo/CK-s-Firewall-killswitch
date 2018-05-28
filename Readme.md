@@ -94,16 +94,11 @@ Select **Network List Manager Policies** from the left pane and double-click on 
 </p>
 
 
-Change the **Location type** from **Public** to **Private**.
-
-
-
-* Change **User permissions** to **User cannot change location** and click **Apply**.
+Change the **Location type** from **Public** to **Private**. You also need to change **User permissions** to **User cannot change location** and then hit **Apply**.
 
 <p align="center"> 
-<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/Public%20to%20Private.png">
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/Network%20And%20Sharing%20Center.png">
 </p>
-
 
 
 This should be your end-result.
