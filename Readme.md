@@ -72,34 +72,29 @@ The main problem with any third party application that disables your network ada
 
 ## Switching your main Network Adapter from 'Public' to'Private'
 
-
-* Press **WinKey+R** to bring up the runbox type in: `control.exe /name Microsoft.NetworkAndSharingCenter`
+Press **WinKey+R** to bring up the runbox type in: `control.exe /name Microsoft.NetworkAndSharingCenter`.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/control.exe.png">
 </p>
 
 
-* Press **WinKey+R** to bring up the runbox type in: `secpol.msc`
-
-<p align="center"> 
-<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/secpol.msc.png">
-</p>
-
-
-* Select Network List Manager Policies from the left pane and double click on Network (name may differ) from the right pane. Right click and select the **Network Location** tab
-
-<p align="center"> 
-<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
-</p>
-
+Now Press **WinKey+R** to bring up the runbox type in: `secpol.msc`.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/Network%20List%20Manager%20Policies.png">
 </p>
 
 
-* Change the **Location type** to **Private**
+Select **Network List Manager Policies** from the left pane and double-click on **WLAN-205946** (this name is different for you). In the right pane right-click on the network name and select the **Network Location** tab from the context menu you can also double-click on it to bring the menu in front of you.
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/Public%20to%20Private.png">
+</p>
+
+
+Change the **Location type** from **Public** to **Private**
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
