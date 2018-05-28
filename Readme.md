@@ -3,21 +3,38 @@
 [![Discord](https://discordapp.com/api/guilds/418256415874875402/widget.png)](https://discord.me/CHEF-KOCH)
 
 
-# Why is a VPN kill switch required?
+# What is a VPN kill switch and why is it required?
 
-A kill switch ensures that no traffic or IP leakage can happen which might exposes you. With the Windows integrated firewall you can eliminate accidental leakage. 
+Kill switch is a technique that helps you prevent unprotected access to the Internet, where your traffic doesn't go through the VPN.
+
+While most leading VPN providers are reliable, there can be _unexpected network drops_ at anytime. Many VPN providers provide 99.99% uptime but there can always be that 0.01% of downtime. Connection drops generally happen because of reasons such as poor Internet connection, an unstable protocol or your firewall settings. There might be any reason behind the drop but it will leak your real IP which can be a really bad thing.
 
 
-## Is this tutorial secure, or do I need to monitor something manually or with a external program?
+When you turn on the kill switch while using VPN and a connection drop occurs, it will drop the Internet connection as well. This way, you will be unable to send unprotected data on the Internet. Several VPN providers integrating their own solutions and options for this within their own VPN Client software, but it's not needed and the original OpenVPN software (GUI) is more than enough, so this tutorial was basically designed to address the 'issue' that the [OpenVPN GUI doesn't include an option for this](https://forums.openvpn.net/viewtopic.php?t=19193). 
 
+
+
+In general there only three ways to prevent a leakage:
+
+* Configure Window own Firewall to disable every outgoing connections on all Private networks, then make the OpenVPN Adapter Public.
+* Fiddle with the Windows routing table directly. Requires some strong networking awareness.
+* Create a virtual router using VM software like VMWare, VirtualBox, QEMU, Parallels, to install a router-friendly OS like PFSense or Linux + OpenVPN config in a new guest virtual machine. Route your host machine through the guest.
+* Some VPN provider directly providing kill switch scripts.
+
+
+
+## Is this tutorial secure, or do I need to monitor something manually or even with an external program?
+
+You don't need any additional software or monitor something manually. This is how it works:
 
 * The Windows own firewall will instantly close all your connections when your VPN disconnects, while other programs only disabling your network interface(s).
 * Layering your OS with software that does the same thing will not add any extra security, it will likely make it less secure because it's maybe vulnerable, you need to trust the download source and monitor it if it's up2date.
 
 
+
 ## What about inbound connections?
 
-* Inbound rules are only in case your device as a server, and has other remote devices connecting to it. In such a case you will have to create or enable rules to allow connections to come through to your server (RDP etc).
+Inbound rules are only in case your device as a server, and has other remote devices connecting to it. In such a case you will have to create or enable rules to allow connections to come through to your server (RDP etc).
 
 
 
@@ -25,15 +42,16 @@ A kill switch ensures that no traffic or IP leakage can happen which might expos
 
 * Windows 7 up to 10 (Home Editions doesn't include secpol.msc)
 * A VPN provider
-* OpenVPN CLient SOftware (also works with others, just replace the path to the executable which etablish the connection)
+* OpenVPN CLient Software (it also works with other client software, just replace the path to the executable which establish the VPN connection)
 * **No** third-party firewall application! 
 * Network adapters need to be set from Private to Public
 * (_optional_) WFC or Windows 10 Firewall Control
 
 
+
 ## Some warnings
 
-* Using a software or hardware firewall is usually the best way to go for locking down your network, however as compliment for the Windows own firewall you could use WFC (binisoft.org) or Windows 10 Firewall Control (sphinx-soft.com)
+* Using a hardware firewall is usually the best way to go for locking down your network, however as compliment for the Windows own firewall you could use WFC ([binisoft.org](https://www.binisoft.org/wfc) now Malwarebytes) or Windows 10 Firewall Control ([sphinx-soft.com](http://sphinx-soft.com/Vista/index.html)). Some router firmware simply won't allow an easy OpenVPN integration or simply doesn't support it at all.
 * If you ever get a **firewall popup** to add program, make sure to **uncheck Private networks** and only have **Public** networks checked before clicking Allow access. If you fail to monitor this, the kill switch will be pointless.
 * Never allow any program to automatically add firewall exceptions. You should only do this manually or whenever you get prompted by Windows Firewall. This isn't a setup and forget solution.
 * Existing firewall rules that are assigned the Private/Domain network spaces will be able to still connect, usually it's just local network related stuff. It would be good if you reviewed all rules and adjust them accordingly to your needs.
@@ -45,9 +63,11 @@ A kill switch ensures that no traffic or IP leakage can happen which might expos
 Simple, the client disables your main network interface, while the firewall simply blocks all traffic without disabling any network interface. Private Internet Access for example has an option within their Client Software, which also doesn't 'prevent' the leakage is simply blocks the interface so no communication can pass the interface.
 
 
+
 ## Problems with third-party integration?
 
 The main problem with any third party application that disables your network adapter is when the VPN connection is terminated, there is a very small window where your IP address can be leaked. Let's not forget to mention that if the client cannot disable the adapter, perhaps due to: security suite, permissions, or when a malfunctioning operating system interferes. A firewall, especially Windows Firewall will have minimum chances of failure if configured correctly; it is arguably the best firewall for Windows in my opinion.
+
 
 
 ## Switching your main Network Adapter from 'Public' to'Private'
@@ -212,13 +232,13 @@ The main problem with any third party application that disables your network ada
 
 # Notice for WFC users
 
-* Some firewall GUI applications such as WFC have special options, ensure that 
+Some firewall GUI applications such as WFC have special options to avoid that Windows or other applications altering your rules.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/WFC%20Secure%20Rules.png">
 </p>
 
-* **Uncheck** the following 3 options during the import/export process. 
+* **Uncheck** the following 3 options _temporarily_ (if enabled) during the import/export process. **Secure Boot**, **Secure Rules** & **Secure Profile**. The option Secure Boot is now in general not necessary since the integrated Windows Firewall now blocks everything until you're connected to your VPN provider.
 
 
 
@@ -226,4 +246,4 @@ The main problem with any third party application that disables your network ada
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/WFC%20rules.png">
 </p>
 
-* Ensure you only allow **public* rules creation, you can make your life easier and avoid making mistakes by unchecking the **Domain** and ''Private** network locations.
+* Ensure you only allow **Public* rule creation this makes your life a lot of easier and avoids doing mistakes. Uncheck under the WFC **Rules** Tab the **Domain** and **Private** network locations, otherwise you might allow an application accidentally to use these locations which hen bypasses the kill switch. 
