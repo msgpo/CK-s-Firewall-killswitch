@@ -231,3 +231,13 @@ Some firewall GUI applications such as WFC have special options to avoid that Wi
 </p>
 
 Uncheck under the WFC **Rules** Tab the **Domain** and **Private** network locations, otherwise you might allow an application accidentally to use these locations which then bypasses the kill switch VPN connection.
+
+
+
+# Notice for applications with own network interface management
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/QB.png">
+</p>
+
+Some applications such as qBittorrent have their own network interface management, it's not necessary to choose manually your VPN interface here, since we're already ensure that we're always connected trough the secure channel. It doesn't offer any extra privacy layer, same goes for [ipfilter.dat](https://torrentfreak.com/anti-piracy-blocklists-dont-keep-bittorrent-spies-out-120904/). However, you still can use it, there no consequences setting it, it's just not necessary. 
