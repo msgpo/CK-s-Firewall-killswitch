@@ -94,11 +94,7 @@ Select **Network List Manager Policies** from the left pane and double-click on 
 </p>
 
 
-Change the **Location type** from **Public** to **Private**
-
-<p align="center"> 
-<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
-</p>
+Change the **Location type** from **Public** to **Private**.
 
 
 
@@ -110,39 +106,43 @@ Change the **Location type** from **Public** to **Private**
 
 
 
-### Open Windows Firewall with 'Advanced Security' Settings
+This should be your end-result.
 
 <p align="center"> 
-<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/wf.png">
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Network%20Adapter%20preparation/NetworkAndSharingCenter.png">
+</p>
+
+Keep in mind that the network adapter names are different for your network.
+
+
+
+# Backup your current Firewall Rules
+
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/wf.msc.png">
 </p>
 
 
-* Press WinKey+R to bring up the runbox and enter **wf.msc**
-
-
-# Backup Current Firewall Policy
+Press **WinKey+R** to bring up the runbox and enter **wf.msc**.
 
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/Firewall%20Export%20settings.png">
 </p>
 
-* Click Action from the top menu bar > **Select Export Policy...**.
+* Click **Action** from the top menu bar and press **Select Export Policy...**.
 
-* Save to Desktop or other location, the file is a Microsoft own format (.wfw) it contains all the firewall rules.
-
-* If you mess up your firewall rules some how, you can always Import Policy... to restore
-
-* Click Action from the top menu bar > Select **Restore Default Policy**. This will revert your firewall rules to the default ones.
-
+* Save this file to eg your Desktop or any other location you want, the file which will be exported is a Microsoft own format (.wfw), it contains all the firewall rules into one file.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Backup%20Current%20Firewall%20Policy/Restore%20Default%20Policy.png">
 </p>
 
 
+* If you mess up your firewall rules, you can always it later with the **Import Policy...** option which requires the file you have backuped previously. 
 
-
+Importing .wfw rules (entire profile) will override all existent rules and set everything back to default.
 
 
 
@@ -152,15 +152,15 @@ Change the **Location type** from **Public** to **Private**
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/New%20Rule.png">
 </p>
 
-* Select **Outbound Rules** on the left pane
-* Click **New Rule...** on the right pane
-* Under Rule Type select **Program**
+* Select **Outbound Rules** on the left pane.
+* Then click **New Rule...** button on the right pane.
+* Under **Rule Type** select **Program**.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/Allow%20OpenVPN.png">
 </p>
 
-* Under **Program** set your path to your OpenVPN installation (ot the VPN Client which manage your VPN Client side connection)eg `C:\Program Files\OpenVPN\bin\openvpn.exe`.
+* Under **Program** set your path to your OpenVPN installation or the VPN Client which manage your VPN Client side connection, we're using OpenVPN in our example so the path under Windows x64 will be `C:\Program Files\OpenVPN\bin\openvpn.exe`.
 
 
 <p align="center"> 
@@ -168,77 +168,68 @@ Change the **Location type** from **Public** to **Private**
 </p>
 
 
-* Action > **Allow the connection**
+Now we're allowing the connection press in the next dialog **Allow the connection**.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Outbound%20Firewall%20Rules/Allow%20OpenVPN.png">
 </p>
 
-* Under Profile select everything, **Domain**, **Private** and **Public** ensure it's checked (default).
-
-* **Name** > Name: For example **VPN Kill Switch** or whatever you want. 
+Under **Profile** select everything, **Domain**, **Private** and **Public** ensure it's checked (by default everything is selected). In the next dialog you can name your new rule to whatever you want, for example `Our secure VPN Kill Switch`.
 
 
 
-
-
-
-# Block all Connections for Private/Domain
+# Block all connections for Private/Domain locations
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Block%20all%20Connections%20for%20Private%20%26%20Domain%20connections/Windows%20Firewall%20with%20Advanced%20Security%20on%20Local%20Computer.png">
 </p>
 
-* Select Windows Firewall with Advanced Security on Local Computer on the left pane
+Select **Windows Firewall with Advanced Security on Local Computer on the left pane**.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Block%20all%20Connections%20for%20Private%20%26%20Domain%20connections/Domain%20and%20Private%20Profile.png">
 </p>
 
 
-* Click Windows Firewall Properties on the middle pane
+And click **Windows Firewall Properties** on the middle pane.
 
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Block%20all%20Connections%20for%20Private%20%26%20Domain%20connections/Public%20Profile.png">
 </p>
 
-* Under the Domain Profile and Private Profile change Outbound connections: to **Block**.
+Under the **Domain Profile** and **Private Profile** change **Outbound connections** to **Block**.
 
 
 
-
-# Giving Internet permission to applications manually
-
+# Giving Internet permission to specific applications manually
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Allow%20internet%20permission%20for%20applications%20manually/Allow%20applications%20manually.png">
 </p>
  
-* Select Outbound Rules on the left pane
-* Click New Rule... on the right pane
+* Select **Outbound Rules** on the left pane.
+* Click **New Rule...** on the very right pane.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/Allow%20internet%20permission%20for%20applications%20manually/Profile.png">
 </p>
 
-* Do the same as the OpenVPN rules you've created, but this time only select the "Public" network space.
+Repeat the same like for the OpenVPN rules you've created earlier, but this time at the end select the **Public** network space since we're want prevent any holes over `Domain` or `Private` locations.
 
 
 # Notice for WFC users
 
-Some firewall GUI applications such as WFC have special options to avoid that Windows or other applications altering your rules.
+Some firewall GUI applications such as WFC have special options to avoid that Windows or other applications tampering with your existent rules.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/WFC%20Secure%20Rules.png">
 </p>
 
-* **Uncheck** the following 3 options _temporarily_ (if enabled) during the import/export process. **Secure Boot**, **Secure Rules** & **Secure Profile**. The option Secure Boot is now in general not necessary since the integrated Windows Firewall now blocks everything until you're connected to your VPN provider.
-
-
+**Uncheck** the following 3 options _temporarily_ (if enabled) during the import/export process. **Secure Boot**, **Secure Rules** & **Secure Profile**. The option Secure Boot is now in general not necessary anymore since the integrated Windows Firewall now blocks everything until you're connected to your VPN provider.
 
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/CHEF-KOCH/CK-s-Firewall-killswitch/master/WFC/WFC%20rules.png">
 </p>
 
-* Ensure you only allow **Public* rule creation this makes your life a lot of easier and avoids doing mistakes. Uncheck under the WFC **Rules** Tab the **Domain** and **Private** network locations, otherwise you might allow an application accidentally to use these locations which hen bypasses the kill switch. 
+Uncheck under the WFC **Rules** Tab the **Domain** and **Private** network locations, otherwise you might allow an application accidentally to use these locations which then bypasses the kill switch VPN connection.
