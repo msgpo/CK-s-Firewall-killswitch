@@ -51,7 +51,7 @@ Inbound rules are only in case your device as a server, and has other remote dev
 
 * Windows 7 up to 10 (Home Editions doesn't include secpol.msc)
 * A VPN provider
-* OpenVPN CLient Software (it also works with other client software, just replace the path to the executable which establish the VPN connection)
+* OpenVPN Client Software (it also works with other client software, just replace the path to the executable which establish the VPN connection)
 * **No** third-party firewall application! 
 * Network adapters need to be set from Private to Public
 * (_optional_) WFC or Windows 10 Firewall Control
